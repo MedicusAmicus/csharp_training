@@ -13,29 +13,29 @@ namespace WebAddressbookTests
     public class UserCreationTests : CommonData
     {
         [Test]
-        public void UserCreationTest()
+        public void ContactCreationTest()
         {
             OpenHomePage();
             Login(new AccountData("admin", "secret"));
-            GotoUsersPage();
-            UserData user = new UserData("Johnn", "Dow");
-            FillUserCreationForm(user);
+            GotoUContactsPage();
+            ContactsData contact = new ContactsData("Johnn", "Dow");
+            FillContactsCreationForm(contact);
             Submit();
             ReturnToHomepage();
             logout();
         }
         
-        private void FillUserCreationForm(UserData user)
+        private void FillContactsCreationForm(ContactsData contact)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(user.Firstname);
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
             driver.FindElement(By.Name("lastname")).Click();
             driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(user.Lastname);
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
         }
 
-        private void GotoUsersPage()
+        private void GotoUContactsPage()
         {
             driver.FindElement(By.LinkText("add new")).Click();
         }        
