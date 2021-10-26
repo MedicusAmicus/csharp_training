@@ -13,7 +13,7 @@ namespace WebAddressbookTests
             contactHelper.GotoUContactsPage();
             ContactsData contact = new ContactsData("Johnn", "Dow");
             contactHelper.FillContactsCreationForm(contact);
-            Submit();
+            contactHelper.Submit();
             navigator.ReturnToHomepage();
             loginHelper.Logout();
         }    

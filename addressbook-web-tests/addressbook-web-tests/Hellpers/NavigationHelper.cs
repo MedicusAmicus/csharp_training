@@ -2,14 +2,12 @@
 
 namespace WebAddressbookTests
 {
-    public class NavigationHelper
-    {
-        private IWebDriver driver;
+    public class NavigationHelper : HelperBase
+    {        
         private string baseURL;
 
-        public NavigationHelper(IWebDriver driver, string baseURL)
-        {
-            this.driver = driver;
+        public NavigationHelper(IWebDriver driver, string baseURL) : base(driver)        
+        {            
             this.baseURL = baseURL;
         }
         public void OpenHomePage()

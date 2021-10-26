@@ -2,13 +2,10 @@
 
 namespace WebAddressbookTests
 {
-    public class ContactHelper
+    public class ContactHelper : HelperBase
     {
-        private IWebDriver driver;
-
-        public ContactHelper(IWebDriver driver)
+        public ContactHelper(IWebDriver driver) : base(driver)
         {
-            this.driver = driver;
         }
         public void FillContactsCreationForm(ContactsData contact)
         {

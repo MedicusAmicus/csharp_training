@@ -16,7 +16,7 @@ namespace WebAddressbookTests
             group.Header = "head";
             group.Footer = "foo";
             groupHelper.FillGroupCreationForm(group);
-            Submit();
+            groupHelper.Submit();
             groupHelper.ReturnToGroupsPage();
             loginHelper.Logout();
         }             

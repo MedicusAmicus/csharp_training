@@ -62,6 +62,7 @@
     <Compile Include="Data\AccountData.cs" />
     <Compile Include="Hellpers\ContactHelper.cs" />
     <Compile Include="Hellpers\GroupHelper.cs" />
+    <Compile Include="Hellpers\HelperBase.cs" />
     <Compile Include="Hellpers\LoginHelper.cs" />
     <Compile Include="Hellpers\NavigationHelper.cs" />
     <Compile Include="Tests\TestBase.cs" />

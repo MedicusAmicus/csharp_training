@@ -2,13 +2,10 @@
 
 namespace WebAddressbookTests
 {
-    public class LoginHelper
-    {
-        private IWebDriver driver;
-
-        public LoginHelper(IWebDriver driver)
-        {
-            this.driver = driver;
+    public class LoginHelper : HelperBase
+    {   
+        public LoginHelper(IWebDriver driver) : base(driver)
+        {            
         }
         public void Login(AccountData account)
         {

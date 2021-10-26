@@ -13,17 +13,13 @@ namespace WebAddressbookTests
     {
         protected IWebDriver driver;
         private StringBuilder verificationErrors;
+        protected string baseURL; 
+
         protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
-        protected ContactHelper contactHelper;
-
-        protected string baseURL;        
-
-        protected void Submit()
-        {
-            driver.FindElement(By.Name("submit")).Click();
-        }
+        protected ContactHelper contactHelper;               
+               
 
         [SetUp]
         public void SetupTest()
