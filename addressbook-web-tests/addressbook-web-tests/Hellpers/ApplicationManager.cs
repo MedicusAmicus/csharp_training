@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text;
 //using System.Text.RegularExpressions;
-//using System.Threading;
+using System.Threading;
+//using System.Threading.Tasks;
 //using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -18,9 +19,11 @@ namespace WebAddressbookTests
         protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
-        protected ContactHelper contactHelper;
+        protected ContactHelper contactHelper;        
 
-        public ApplicationManager()
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
+
+        private ApplicationManager()
         {
             driver = new ChromeDriver();
             baseURL = "http://localhost/addressbook";
@@ -31,6 +34,16 @@ namespace WebAddressbookTests
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
         } 
+
+        public static ApplicationManager GetInstance()
+        {
+            if(! app.IsValueCreated)
+            {
+                app.Value = new ApplicationManager();
+            }
+            return app.Value;
+        }
+
         public LoginHelper Auth
         {
             get
@@ -68,7 +81,7 @@ namespace WebAddressbookTests
             }
         }
 
-        public void Stop()
+        ~ApplicationManager()
         {
             try
             {
@@ -77,7 +90,7 @@ namespace WebAddressbookTests
             catch (Exception)
             {
                 // Ignore errors if unable to close the browser
-            }            
+            }         
         }
     }
 }
