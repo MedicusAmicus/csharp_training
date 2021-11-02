@@ -5,15 +5,13 @@ namespace WebAddressbookTests
 {
     public class HelperBase
     {
+        protected ApplicationManager manager;
         protected IWebDriver driver;
 
-        public HelperBase(IWebDriver driver)
+        public HelperBase(ApplicationManager manager)
         {
-        this.driver = driver;
-        }
-        public void Submit()
-        {
-            driver.FindElement(By.Name("submit")).Click();
+            this.manager = manager;
+            driver = manager.Driver;
         }
     }
     

@@ -26,10 +26,10 @@ namespace WebAddressbookTests
             baseURL = "http://localhost/addressbook";
             verificationErrors = new StringBuilder();
 
-            loginHelper = new LoginHelper(driver);
-            navigator = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
-            contactHelper = new ContactHelper(driver);
+            loginHelper = new LoginHelper(this);
+            navigator = new NavigationHelper(this, baseURL);
+            groupHelper = new GroupHelper(this);
+            contactHelper = new ContactHelper(this);
         } 
         public LoginHelper Auth
         {
@@ -45,14 +45,14 @@ namespace WebAddressbookTests
                 return navigator;
             }
         }
-        public GroupHelper Groups
+        public GroupHelper Group
         {
             get
             {
                 return groupHelper;
             }
         }
-        public ContactHelper Contacts
+        public ContactHelper Contact
         {
             get
             {
@@ -60,6 +60,13 @@ namespace WebAddressbookTests
             }
         }
 
+        public IWebDriver Driver
+        {
+            get
+            {
+                return driver;
+            }
+        }
 
         public void Stop()
         {

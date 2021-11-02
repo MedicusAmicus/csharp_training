@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebAddressbookTests
+﻿namespace WebAddressbookTests
 {
     public class GroupData
     {
         private string name;
         private string header = "";
         private string footer = "";
+        private string group_number;
 
         public GroupData(string name)
         {
@@ -53,6 +48,17 @@ namespace WebAddressbookTests
             set
             {
                 footer = value;
+            }
+        }
+        public string Group_number
+        {
+            get
+            {
+                return group_number;
+            }
+            set
+            {
+                group_number = value;
             }
         }
     }
