@@ -27,18 +27,22 @@ namespace WebAddressbookTests
 
         public bool IsloggedIn()
         {
-            return IsElementPresent(By.Name("Logout"));
+            return IsElementPresent(By.Name("logout"));
         }
 
         public bool IsloggedIn(AccountData account)
         {
-            return IsloggedIn()
-                && driver.FindElement(By.Name("Logout")).FindElement(By.TagName("b")).Text == "(" + account.Username + ")";
+            return IsloggedIn() &&
+             driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text == "(" + account.Username + ")";
         }
 
         public void Logout()
         {
-            driver.FindElement(By.LinkText("Logout")).Click();
+            if (IsloggedIn())
+            {
+                driver.FindElement(By.LinkText("Logout")).Click();
+            }
+            
         }
     }
 }
