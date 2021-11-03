@@ -56,7 +56,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tests\TestSuiteFixture.cs" />
     <Compile Include="Model\AccountData.cs" />
     <Compile Include="Hellpers\ApplicationManager.cs" />
     <Compile Include="Hellpers\ContactHelper.cs" />
