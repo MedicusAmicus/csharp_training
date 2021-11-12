@@ -24,12 +24,7 @@ namespace WebAddressbookTests
         }
 
         public ContactHelper Modify(int contact_number, ContactsData new_data)
-        {
-            while (! IsContactPresent(contact_number)) //Здесь и далее не if, для того, чтобы удалять не только певый, а любой элемент из списка
-            {
-                ContactsData contact = new ContactsData("Johnn", "Dow");
-                Create(contact);
-            }
+        {            
             ModifyContact(contact_number);
             FillContactsCreationForm(new_data);
             Update();
@@ -39,11 +34,6 @@ namespace WebAddressbookTests
 
         public ContactHelper RemoveFromMainPage(int contact_number)
         {
-            while (! IsContactPresent(contact_number))
-            {
-                ContactsData contact = new ContactsData("Johnn", "Dow");
-                Create(contact);
-            }
             SelectContact(contact_number);
             Remove();
             manager.Navigator.AlertAccept(); 
@@ -52,12 +42,7 @@ namespace WebAddressbookTests
         }
 
         public ContactHelper RemoveFromModifyPage(int contact_number)
-        {
-            while (! IsContactPresent(contact_number))
-            {
-                ContactsData contact = new ContactsData("Johnn", "Dow");
-                Create(contact);
-            }
+        {            
             ModifyContact(contact_number);
             Remove();
             manager.Navigator.ReturnToHomepage();
@@ -99,7 +84,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private bool IsContactPresent(int ItemIndex)
+        public bool IsContactPresent(int ItemIndex)
         {
             return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + ItemIndex + "]"));
         }

@@ -39,14 +39,6 @@ namespace WebAddressbookTests
 
         public GroupHelper Remove(int group_number)
         {
-            while (!IsGroupPresent(group_number))
-            {
-                GroupData group = new GroupData("Group");
-                group.Header = "head";
-                group.Footer = "foo";
-
-                Create(group);
-            }
             manager.Navigator.GotoGroupsPage(); 
             SelectGroup(group_number);
             RemoveGroup();
@@ -56,15 +48,7 @@ namespace WebAddressbookTests
 
 
         public GroupHelper Modify(int group_number, GroupData new_data)
-        {
-            while (!IsGroupPresent(group_number))
-            {
-                GroupData group = new GroupData("Group");
-                group.Header = "head";
-                group.Footer = "foo";
-
-                Create(group);
-            }
+        {           
             manager.Navigator.GotoGroupsPage();
             SelectGroup(group_number);
             ModifyGroup();
@@ -100,7 +84,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("update")).Click();
             return this;
         }
-        private bool IsGroupPresent(int group_index)
+        public bool IsGroupPresent(int group_index)
         {
             return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + group_index + "]"));
         }
