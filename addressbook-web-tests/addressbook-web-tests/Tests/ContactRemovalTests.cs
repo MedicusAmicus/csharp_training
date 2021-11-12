@@ -14,18 +14,18 @@ namespace WebAddressbookTests
                 ContactsData contact = new ContactsData("Johnn", "Dow");
                 app.Contact.Create(contact);
             }
-            app.Contact.RemoveFromMainPage(2);
+            app.Contact.RemoveFromMainPage(contact_index);
         }
         [Test]
         public void ContactRemoveFromEditPageTest()
         {
-            int contact_index = 2;
+            int contact_index = 1;
             while (!app.Contact.IsContactPresent(contact_index))
             {
                 ContactsData contact = new ContactsData("Johnn", "Dow");
                 app.Contact.Create(contact);
             }
-            app.Contact.RemoveFromModifyPage(2);
+            app.Contact.RemoveFromModifyPage(contact_index);
         }
     }
 }

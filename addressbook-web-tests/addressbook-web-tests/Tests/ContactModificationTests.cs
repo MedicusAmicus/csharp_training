@@ -8,7 +8,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModifyTest()
         {
-            int contact_index = 2;
+            int contact_index = 3;
             while (!app.Contact.IsContactPresent(contact_index))
             {
                 ContactsData contact = new ContactsData("Johnn", "Dow");
@@ -17,7 +17,7 @@ namespace WebAddressbookTests
             ContactsData new_data = new ContactsData("Jane");
             new_data.Lastname = "Parkins";            
 
-            app.Contact.Modify(2, new_data);
+            app.Contact.Modify(contact_index, new_data);
         }
     }
 }
