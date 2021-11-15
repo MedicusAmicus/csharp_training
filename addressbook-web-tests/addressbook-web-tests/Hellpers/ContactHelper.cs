@@ -24,17 +24,27 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.XPath("//table/tbody/tr[@name='entry']")).Count;
+        }
+
+        private List<ContactsData> contactsCache = null;
+
         public List<ContactsData> GetContactList()        
         {
-            List<ContactsData> contacts = new List<ContactsData>();            
-            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//table/tbody/tr[@name='entry']")); 
-            foreach (IWebElement element in elements)
+            if (contactsCache == null)
             {
-                string[] name = element.Text.Split(' ');
-                contacts.Add(new ContactsData(name[1], name[0]));
+                contactsCache = new List<ContactsData>();
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//table/tbody/tr[@name='entry']"));
+                foreach (IWebElement element in elements)
+                {
+                    string[] name = element.Text.Split(' ');
+                    contactsCache.Add(new ContactsData(name[1], name[0]));
+                }
             }
-            return contacts;
-        }
+            return new List<ContactsData>(contactsCache);
+        }       
 
         public ContactHelper Modify(int contact_number, ContactsData new_data)
         {            
@@ -64,12 +74,14 @@ namespace WebAddressbookTests
 
         public void Remove()
         {
-            driver.FindElement(By.XPath("(//input[@value='Delete'])")).Click();         
+            driver.FindElement(By.XPath("(//input[@value='Delete'])")).Click();
+            contactsCache = null;
         }
         
         public ContactHelper Update()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactsCache = null;
             return this;
         }
 
@@ -94,6 +106,7 @@ namespace WebAddressbookTests
         public ContactHelper Submit()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactsCache = null;
             return this;
         }
 

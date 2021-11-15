@@ -7,8 +7,7 @@ namespace WebAddressbookTests
 {
         private string name;
         private string header = "";
-        private string footer = "";
-        private string group_number;
+        private string footer = "";        
 
         public GroupData(string name)
         {
@@ -84,17 +83,6 @@ namespace WebAddressbookTests
             set
             {
                 footer = value;
-            }
-        }
-        public string Group_number
-        {
-            get
-            {
-                return group_number;
-            }
-            set
-            {
-                group_number = value;
             }
         }
     }

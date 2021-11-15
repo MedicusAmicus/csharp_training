@@ -20,6 +20,8 @@ namespace WebAddressbookTests
 
             app.Contact.RemoveFromMainPage(contact_index);
 
+            Assert.AreEqual(oldContacts.Count - 1, app.Contact.GetContactCount());
+
             List<ContactsData> newContacts = app.Contact.GetContactList();
             oldContacts.RemoveAt(contact_index);
             Assert.AreEqual(oldContacts, newContacts);
@@ -35,11 +37,14 @@ namespace WebAddressbookTests
             }
             List<ContactsData> oldContacts = app.Contact.GetContactList();
 
-            app.Contact.RemoveFromModifyPage(contact_index+1);
+            app.Contact.RemoveFromModifyPage(contact_index);
+
+            Assert.AreEqual(oldContacts.Count - 1, app.Contact.GetContactCount());
 
             List<ContactsData> newContacts = app.Contact.GetContactList();
 
-            oldContacts.RemoveAt(contact_index);
+            oldContacts.RemoveAt(contact_index+1);
+
             Assert.AreEqual(oldContacts, newContacts);            
         }
     }
