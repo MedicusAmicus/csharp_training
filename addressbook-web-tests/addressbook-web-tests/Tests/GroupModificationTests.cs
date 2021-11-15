@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
+
 
 namespace WebAddressbookTests
 {
@@ -8,8 +10,8 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModifyTest()
         {
-            int group_index = 2;
-            while (!app.Group.IsGroupPresent(group_index))
+            int group_index = 1;
+            while (!app.Group.IsGroupPresent(group_index+1))
             {
                 GroupData group = new GroupData("Group");
                 group.Header = "head";
@@ -17,11 +19,19 @@ namespace WebAddressbookTests
 
                 app.Group.Create(group);
             }
-            GroupData new_data = new GroupData("GroupMod");
-            new_data.Header = null;
-            new_data.Footer = null;
+            GroupData new_data = new GroupData("GroupMod3");
+            new_data.Header = "";
+            new_data.Footer = "";
 
-            app.Group.Modify(group_index, new_data);            
+            List<GroupData> oldGroups = app.Group.GetGroupList();
+
+            app.Group.Modify(group_index, new_data);
+
+            List<GroupData> newGroups = app.Group.GetGroupList();
+            oldGroups[group_index].Name = new_data.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);            
         }
     }
 }

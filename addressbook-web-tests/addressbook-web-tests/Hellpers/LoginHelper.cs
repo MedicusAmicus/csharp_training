@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using OpenQA.Selenium;
 
 namespace WebAddressbookTests

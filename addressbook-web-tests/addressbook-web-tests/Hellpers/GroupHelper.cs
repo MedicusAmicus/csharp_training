@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace WebAddressbookTests
@@ -19,7 +19,19 @@ namespace WebAddressbookTests
             Type(By.Name("group_header"), group.Header);
             Type(By.Name("group_footer"), group.Footer);            
             return this;
-        }        
+        }
+
+        public List<GroupData> GetGroupList()
+        {
+            manager.Navigator.GotoGroupsPage();
+            List<GroupData> groups = new List<GroupData>();            
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+            {                
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
+        }
 
         public GroupHelper ReturnToGroupsPage()
         {
@@ -71,7 +83,7 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int group_index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + group_index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (group_index+1) + "]")).Click();
             return this;
         }
         public GroupHelper Submit()
@@ -86,7 +98,8 @@ namespace WebAddressbookTests
         }
         public bool IsGroupPresent(int group_index)
         {
+            manager.Navigator.GotoGroupsPage();
             return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + group_index + "]"));
-        }
+        }       
     }
 }
