@@ -17,6 +17,7 @@ namespace WebAddressbookTests
             }
 
             List<ContactsData> oldContacts = app.Contact.GetContactList();
+            ContactsData oldData = oldContacts[contact_index];
 
             app.Contact.RemoveFromMainPage(contact_index);
 
@@ -36,6 +37,7 @@ namespace WebAddressbookTests
                 app.Contact.Create(contact);
             }
             List<ContactsData> oldContacts = app.Contact.GetContactList();
+            ContactsData oldData = oldContacts[contact_index];
 
             app.Contact.RemoveFromModifyPage(contact_index);
 

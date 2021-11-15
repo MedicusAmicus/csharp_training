@@ -10,7 +10,7 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModifyTest()
         {
-            int group_index = 1;
+            int group_index = 0;
             while (!app.Group.IsGroupPresent(group_index+1))
             {
                 GroupData group = new GroupData("Group");
@@ -24,6 +24,7 @@ namespace WebAddressbookTests
             new_data.Footer = "";
 
             List<GroupData> oldGroups = app.Group.GetGroupList();
+            GroupData oldData = oldGroups[group_index];
 
             app.Group.Modify(group_index, new_data);
 
@@ -33,7 +34,15 @@ namespace WebAddressbookTests
             oldGroups[group_index].Name = new_data.Name;
             oldGroups.Sort();
             newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups);            
+            Assert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData group in newGroups)
+            {
+                if (group.Id == oldData.Id)
+                {
+                    Assert.AreEqual(new_data.Name, group.Name);
+                }
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System;
 using OpenQA.Selenium;
 
 namespace WebAddressbookTests
@@ -37,10 +38,12 @@ namespace WebAddressbookTests
             {
                 contactsCache = new List<ContactsData>();
                 ICollection<IWebElement> elements = driver.FindElements(By.XPath("//table/tbody/tr[@name='entry']"));
+                
                 foreach (IWebElement element in elements)
-                {
+                {                    
                     string[] name = element.Text.Split(' ');
-                    contactsCache.Add(new ContactsData(name[1], name[0]));
+                    int Id = Convert.ToInt32(element.FindElement(By.TagName("input")).GetAttribute("value"));                    
+                    contactsCache.Add(new ContactsData(name[1], name[0], Id));                    
                 }
             }
             return new List<ContactsData>(contactsCache);

@@ -3,13 +3,10 @@
 namespace WebAddressbookTests
 {
     public class ContactsData : IEquatable<ContactsData>, IComparable<ContactsData>
-    {
-        private string firstname;
-        private string lastname;        
-
+    {        
         public ContactsData(string firstname)
         {
-            this.firstname = firstname;
+            Firstname = firstname;
         }
 
         public bool Equals(ContactsData other)
@@ -45,30 +42,19 @@ namespace WebAddressbookTests
 
         public ContactsData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;            
+            Firstname = firstname;
+            Lastname = lastname;            
         }
-        public string Firstname
+
+        public ContactsData (string firstname, string lastname, int Id)
         {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
+            Firstname = firstname;
+            Lastname = lastname;
+            ID = Id;
         }
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }        
+
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public int ID { get; set; }
     }
 }
