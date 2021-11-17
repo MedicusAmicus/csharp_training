@@ -40,10 +40,14 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.XPath("//table/tbody/tr[@name='entry']"));
                 
                 foreach (IWebElement element in elements)
-                {                    
-                    string[] name = element.Text.Split(' ');
-                    int Id = Convert.ToInt32(element.FindElement(By.TagName("input")).GetAttribute("value"));                    
-                    contactsCache.Add(new ContactsData(name[1], name[0], Id));                    
+                {
+                    IList<IWebElement> contact = element.FindElements(By.TagName("td"));
+
+                    string firstname = contact[2].Text;
+                    string lastname = contact[1].Text;
+                    int Id = Convert.ToInt32(element.FindElement(By.TagName("input")).GetAttribute("value")); 
+
+                    contactsCache.Add(new ContactsData(firstname, lastname,  Id));                    
                 }
             }
             return new List<ContactsData>(contactsCache);
