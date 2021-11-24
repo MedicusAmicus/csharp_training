@@ -9,7 +9,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModifyTest()
         {
-            int contact_index = 0;
+            int contact_index = 2;
             while (!app.Contact.IsContactPresent(contact_index+1))
             {
                 ContactsData contact = new ContactsData("Johnn", "Dow");
@@ -29,6 +29,7 @@ namespace WebAddressbookTests
 
             oldData.Lastname = new_data.Lastname;
             oldData.Firstname = new_data.Firstname;
+
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
@@ -37,8 +38,8 @@ namespace WebAddressbookTests
             {
                 if (contact.ID == oldData.ID)
                 {
-                    Assert.AreEqual(new_data.Lastname, contact.Lastname);
-                    Assert.AreEqual(new_data.Firstname, contact.Firstname);                    
+                    Assert.AreEqual(oldData.Lastname, contact.Lastname);
+                    Assert.AreEqual(oldData.Firstname, contact.Firstname);                    
                 }
             }
         }

@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using OpenQA.Selenium;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using NUnit.Framework;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 { 
@@ -39,14 +46,26 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
                 foreach (IWebElement element in elements)
                 {                    
-                    groupCache.Add (new GroupData(element.Text)
+                    groupCache.Add (new GroupData(null)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     }
                     );
+                }                
+                string[] names = driver.FindElement(By.CssSelector("div#content form")).Text.Split('\n');
+                int shift = groupCache.Count - names.Length;
+                for (int i = 0; i < groupCache.Count; i++)
+                {
+                    if (i < shift)
+                    {
+                        groupCache[i].Name = "";
+                    }
+                    else
+                    {
+                        groupCache[i].Name = names[i-shift].Trim();
+                    }                    
                 }
-            }
-            
+            }            
             return new List<GroupData>(groupCache);
         }
 
