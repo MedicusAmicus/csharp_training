@@ -9,7 +9,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemoveFromMainPageTest()
         {
-            int contact_index = 0;
+            int contact_index = 5;
             while (!app.Contact.IsContactPresent(contact_index+1))
             {
                 ContactsData contact = new ContactsData("Johnn", "Dow");
@@ -27,10 +27,11 @@ namespace WebAddressbookTests
             oldContacts.RemoveAt(contact_index);
             Assert.AreEqual(oldContacts, newContacts);
         }
+
         [Test]
         public void ContactRemoveFromEditPageTest()
         {
-            int contact_index = 0;
+            int contact_index = 5;
             while (!app.Contact.IsContactPresent(contact_index+1))
             {
                 ContactsData contact = new ContactsData("Johnn", "Dow");

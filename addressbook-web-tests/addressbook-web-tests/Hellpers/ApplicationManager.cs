@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 //using System.Text.RegularExpressions;
 using System.Threading;
@@ -93,6 +94,21 @@ namespace WebAddressbookTests
             {
                 // Ignore errors if unable to close the browser
             }         
+        }
+
+        public List<String> GetContactInformationFromDetailTable(int contactIndex)
+        {
+            Navigator.GoToDetailsPage(contactIndex);
+            
+            IList<IWebElement> ContactDetails = driver.FindElements(By.XPath("(//*[@id='content'])"));
+            List<String> data = null;
+            for (int i=0; i < ContactDetails.Count; i++)
+            {
+                string contactdata = ContactDetails[i].Text;
+                
+                data.Add(contactdata);
+            }
+            return data;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace WebAddressbookTests
     public class ContactInformationTests : AuthTestBase
     {
         [Test]
-        public void TestContactInfotmation()
+        public void TestContactInformation()
         {
             int contactIndex = 0;
 
@@ -19,18 +19,15 @@ namespace WebAddressbookTests
             Assert.AreEqual(fromTable.AllEmail, fromEditForm.AllEmail);
         }
 
-       /* [Test]
-        public void TestDetailContactInfotmation()
+        [Test]
+        public void TestDetailContactInformation()
         {
-            int contactIndex = 3;
+            int contactIndex = 0;
 
-            ContactsData fromTable = app.Contact.GetContactInformationFromDetailTable(contactIndex);
+            string fromDetails = app.Contact.GetContactInformationFromDetailTable(contactIndex);
             ContactsData fromEditForm = app.Contact.GetContactInformationFromEditForm(contactIndex);
 
-            Assert.AreEqual(fromTable, fromEditForm);
-            Assert.AreEqual(fromTable.Address, fromEditForm.Address);
-            Assert.AreEqual(fromTable.AllPhones, fromEditForm.AllPhones);
-            Assert.AreEqual(fromTable.AllEmail, fromEditForm.AllEmail);
-        }*/
+            Assert.AreEqual(fromDetails, fromEditForm.ContactDetails);            
+        }
     }
 }

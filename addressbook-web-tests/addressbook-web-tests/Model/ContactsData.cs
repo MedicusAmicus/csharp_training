@@ -49,13 +49,6 @@ namespace WebAddressbookTests
             Lastname = lastname;            
         }
 
-        public ContactsData(string firstname, string lastname, int Id)
-        {
-            Firstname = firstname;
-            Lastname = lastname;
-            ID = Id;
-        }
-
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public int ID { get; set; }
@@ -110,6 +103,8 @@ namespace WebAddressbookTests
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
+
+        public string ContactDetails { get; set; }
 
         private string Cleanup(string phone)
         {

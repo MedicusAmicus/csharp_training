@@ -35,6 +35,12 @@ namespace WebAddressbookTests
         public void AlertAccept()
         {
             driver.SwitchTo().Alert().Accept();
-        }        
+        }
+
+        public void GoToDetailsPage(int contact_number)
+        {
+            int contact_id = int.Parse(s: driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (contact_number + 1) + "]")).GetProperty("id"));
+            driver.Navigate().GoToUrl(baseURL + "/view.php?id=" + contact_id);
+        }
     }
 }
