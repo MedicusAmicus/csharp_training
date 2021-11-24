@@ -102,7 +102,7 @@ namespace WebAddressbookTests
             }
             set
             {
-                allPhones = value;
+                allEmail = value;
             }
         }
 
