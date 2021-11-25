@@ -12,6 +12,11 @@ namespace WebAddressbookTests
             Firstname = firstname;
         }
 
+        public override string ToString()
+        {
+            return "\nFirstname=" + Firstname + "\nLastname=" + Lastname;
+        }
+
         public bool Equals(ContactsData other)
         {
             if (Object.ReferenceEquals(other, null))
