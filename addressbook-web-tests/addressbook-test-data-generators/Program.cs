@@ -10,86 +10,109 @@ namespace WebAddressbookTests
     {
         static void Main(string[] args)
         {
+            string target = args[1].Split('.')[0];
+            string format = args[1].Split('.')[1];
+            int count = Convert.ToInt32(args[0]);
+            string filename = target + '.' + format;
+            string path = "c:\\Users\\User\\source\\repos\\MedicusAmicus\\csharp_training" +
+                "\\addressbook-web-tests\\addressbook-web-tests\\"; //не хочу ручками копировать
+
+            /*
             string target = args[0];
             int count = Convert.ToInt32(args[1]);
             string filename = args[2];
             string path = "c:\\Users\\User\\source\\repos\\MedicusAmicus\\csharp_training" +
-                "\\addressbook-web-tests\\addressbook-web-tests\\"; //не хочу ручками копировать
+                "\\addressbook-web-tests\\addressbook-web-tests\\"; 
             string format = args[3];
+            */
 
-            if (target == "group")
+
+            if (target == "groups")
             {
-                WriteGroupDataFile(count, filename, path, format);
+                WriteGroupDataFile(count, filename, path, format);                
             }
             else if (target == "contacts")
             {
-                WriteContactDataFile(count, filename, path, format);
+                WriteContactDataFile(count, filename, path, format);                
             }
             else
             {
-                Console.Out.Write("Unrecognized target " + target);
+                Console.Out.Write("Unrecognized target: " + target + ". Valid targets are: \"groups\", \"contacts\"");
             }
         }
 
         private static void WriteGroupDataFile(int count, string filename, string path, string format)
         {
-            List<GroupData> groups = new List<GroupData>();
-            StreamWriter writer = new StreamWriter(path + filename);
-            for (int i = 0; i < count; i++)
+            if (format == "csv" || format == "xml" || format == "json")
             {
-                groups.Add(new GroupData()
+                List<GroupData> groups = new List<GroupData>();
+                StreamWriter writer = new StreamWriter(path + filename);
+                for (int i = 0; i < count; i++)
                 {
-                    Name = TestBase.GenerateRandomString(10),
-                    Header = TestBase.GenerateRandomString(20),
-                    Footer = TestBase.GenerateRandomString(20)
-                });
-            }
+                    groups.Add(new GroupData()
+                    {
+                        Name = TestBase.GenerateRandomString(10),
+                        Header = TestBase.GenerateRandomString(20),
+                        Footer = TestBase.GenerateRandomString(20)
+                    });
+                }
 
-            if (format == "csv")
-            {
-                WriteGroupsToCsvFile(groups, writer);
-            }
-            else if (format == "xml")
-            {
-                WriteGroupsToXmlFile(groups, writer);
-            }
-            else if (format == "json")
-            {
-                WriteGroupsToJsonFile(groups, writer);
+                if (format == "csv")
+                {
+                    WriteGroupsToCsvFile(groups, writer);
+                    Console.Out.Write("Done!");
+                }
+                else if (format == "xml")
+                {
+                    WriteGroupsToXmlFile(groups, writer);
+                    Console.Out.Write("Done!");
+                }
+                else if (format == "json")
+                {
+                    WriteGroupsToJsonFile(groups, writer);
+                    Console.Out.Write("Done!");
+                }
+                writer.Close();
             }
             else
             {
-                Console.Out.Write("Unrecognized format " + format);
-            }
-            writer.Close();
+                Console.Out.Write("Unrecognized format: " + format + ". Available formats are: *.csv, *.xml, *.json");
+            }            
         }
 
         private static void WriteContactDataFile(int count, string filename, string path, string format)
         {
-            List<ContactsData> contacts = new List<ContactsData>();
-            StreamWriter writer = new StreamWriter(path + filename);
-            for (int i = 0; i < count; i++)
-            {
-                contacts.Add(new ContactsData()
-                {
-                    Firstname = TestBase.GenerateRandomString(10),
-                    Lastname = TestBase.GenerateRandomString(20)                    
-                });
-            }
 
-            if (format == "xml")
+            if (format == "csv" || format == "xml" || format == "json")
             {
-                WriteContactsToXmlFile(contacts, writer);
-            }
-            else if (format == "json")
-            {
-                WriteContactsToJsonFile(contacts, writer);
+                List<ContactsData> contacts = new List<ContactsData>();
+                StreamWriter writer = new StreamWriter(path + filename);
+                for (int i = 0; i < count; i++)
+                {
+                    contacts.Add(new ContactsData()
+                    {
+                        Firstname = TestBase.GenerateRandomString(10),
+                        Lastname = TestBase.GenerateRandomString(20)
+                    });
+                }
+
+                if (format == "xml")
+                {
+                    WriteContactsToXmlFile(contacts, writer);
+                    Console.Out.Write("Done!");
+                }
+                else if (format == "json")
+                {
+                    WriteContactsToJsonFile(contacts, writer);
+                    Console.Out.Write("Done!");
+                }                
+                writer.Close();
             }
             else
             {
-                Console.Out.Write("Unrecognized format " + format);
+                Console.Out.Write("Unrecognized format: " + format + ". Available formats are: *.csv, *.xml, *.json");
             }
-            writer.Close();
+
         }
 
         static void WriteGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
@@ -109,8 +132,7 @@ namespace WebAddressbookTests
         }
         static void WriteGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
         {
-            writer.Write(JsonConvert.SerializeObject(groups, Formatting.Indented));
-            //writer.Close();
+            writer.Write(JsonConvert.SerializeObject(groups, Formatting.Indented));            
         }
 
         
