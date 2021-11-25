@@ -128,7 +128,7 @@ namespace WebAddressbookTests
             }
             if (homepage != "")
             {
-                ContactDetails = ContactDetails + "\r\n" + homepage;
+                ContactDetails = ContactDetails + "\r\nHomepage:\r\n" + homepage;
             }
             if (birthday != "-. - ")
             {
