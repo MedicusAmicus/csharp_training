@@ -29,7 +29,7 @@ namespace WebAddressbookTests
                 File.ReadAllText(@"contacts.json"));
         }
 
-        [Test, TestCaseSource("RandomContactDataProvider")]
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactsData contact)
         {         
             List<ContactsData> oldContacts = app.Contact.GetContactList();
