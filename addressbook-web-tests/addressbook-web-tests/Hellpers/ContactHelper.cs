@@ -41,15 +41,12 @@ namespace WebAddressbookTests
             string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
             string birthday = getContactBirthday();
             string anniversary = getAnniversary();
-            string sec_Address = driver.FindElement(By.Name("address2")).Text; 
-            string notes = driver.FindElement(By.Name("notes")).Text; 
+            string sec_Address = driver.FindElement(By.Name("address2")).Text;
+            string notes = driver.FindElement(By.Name("notes")).Text;
 
-            
-            string contactDetails = firstName + ' ' + middleName + ' ' + lastName + "\r\n" + nickName + "\r\n" 
-                + title + "\r\n" + company + "\r\n" + address + "\r\n\r\nH: " + homePhone +  "\r\nM: " + mobilePhone + "\r\nW: "
-                + workPhone + "\r\nF: " + fax + "\r\n\r\n" + email + "\r\n" + email2 + "\r\n" + email3 + "\r\nHomepage:\r\n" 
-                + homepage + "\r\n\r\nBirthday " + birthday + "\r\nAnniversary " + anniversary + "\r\n\r\n" 
-                + sec_Address + "\r\n\r\nP: " + homePhone2 + "\r\n\r\n" + notes;
+            string contactDetails = CleanAndConcat(firstName, middleName, lastName, nickName, title, 
+                company, address, homePhone, mobilePhone, workPhone, homePhone2, fax, email, email2, email3, 
+                homepage, birthday, anniversary, sec_Address, notes);
 
             return new ContactsData(firstName, lastName)
             {
@@ -64,6 +61,97 @@ namespace WebAddressbookTests
                 ContactDetails = contactDetails
             };
 
+        }
+
+        private static string CleanAndConcat(string firstName, string middleName, string lastName, 
+            string nickName, string title, string company, string address, 
+            string homePhone, string mobilePhone, string workPhone, string homePhone2, string fax,
+            string email, string email2, string email3, string homepage, string birthday, string anniversary, 
+            string sec_Address, string notes)
+        {
+            string ContactDetails = "";
+            if (firstName != "")
+            {
+                ContactDetails = ContactDetails + firstName;
+            }
+            if (middleName != "")
+            {
+                ContactDetails = ContactDetails + ' ' + middleName;
+            }
+            if (lastName != "")
+            {
+                ContactDetails = ContactDetails + ' ' + lastName;
+            }
+            if (nickName != "")
+            {
+                ContactDetails = ContactDetails + "\r\n" + nickName;
+            }
+            if (title != "")
+            {
+                ContactDetails = ContactDetails + "\r\n" + title;
+            }
+            if (company != "")
+            {
+                ContactDetails = ContactDetails + "\r\n" + company;
+            }
+            if (address != "")
+            {
+                ContactDetails = ContactDetails  + "\r\n"+ address;
+            }
+            if (homePhone != "")
+            {
+                ContactDetails = ContactDetails + "\r\n\r\nH: " + homePhone;
+            }
+            if (mobilePhone != "")
+            {
+                ContactDetails = ContactDetails + "\r\nM: " + mobilePhone;
+            }
+            if (workPhone != "")
+            {
+                ContactDetails = ContactDetails + "\r\nW: " + workPhone;
+            }
+            if (fax != "")
+            {
+                ContactDetails = ContactDetails + "\r\nF: " + fax;
+            }
+            if (email != "")
+            {
+                ContactDetails = ContactDetails + "\r\n\r\n" + email;
+            }
+            if (email2 != "")
+            {
+                ContactDetails = ContactDetails + "\r\n" + email2;
+            }
+            if (email3 != "")
+            {
+                ContactDetails = ContactDetails + "\r\n" + email3;
+            }
+            if (homepage != "")
+            {
+                ContactDetails = ContactDetails + "\r\n" + homepage;
+            }
+            if (birthday != "-. - ")
+            {
+                ContactDetails = ContactDetails + "\r\n\r\nBirthday " + birthday ;
+            }
+            if (anniversary != "-. - ")
+            {
+                ContactDetails = ContactDetails + "\r\nAnniversary " + anniversary ;
+            }
+            if (sec_Address != "")
+            {
+                ContactDetails = ContactDetails + "\r\n\r\n" + sec_Address ;
+            }
+            if (homePhone2 != "")
+            {
+                ContactDetails = ContactDetails+ "\r\n\r\nP: " + homePhone2;
+            }
+            if (notes != "")
+            {
+                ContactDetails = ContactDetails +"\r\n\r\n" + notes;
+            }
+
+            return ContactDetails;
         }
 
         private string getContactBirthday()

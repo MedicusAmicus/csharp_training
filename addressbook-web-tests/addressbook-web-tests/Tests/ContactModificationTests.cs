@@ -12,11 +12,11 @@ namespace WebAddressbookTests
             int contact_index = 2;
             while (!app.Contact.IsContactPresent(contact_index+1))
             {
-                ContactsData contact = new ContactsData("Johnn", "Dow");
+                ContactsData contact = new ContactsData() { Firstname = "Johnn", Lastname = "Dow" };
                 app.Contact.Create(contact);
             }
-            ContactsData new_data = new ContactsData("Jane");
-            new_data.Lastname = "Parkins";
+            ContactsData new_data = new ContactsData() { Firstname = "Jane", Lastname = "Parkins" };
+            
 
             List<ContactsData> oldContacts = app.Contact.GetContactList();
             ContactsData oldData = oldContacts[contact_index];

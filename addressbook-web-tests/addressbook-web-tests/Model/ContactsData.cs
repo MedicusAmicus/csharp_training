@@ -7,9 +7,8 @@ namespace WebAddressbookTests
         private string allPhones;
         private string allEmail;
 
-        public ContactsData(string firstname)
-        {
-            Firstname = firstname;
+        public ContactsData()
+        {            
         }
 
         public override string ToString()
