@@ -94,9 +94,21 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (Email + "\r\n" + Email2 + "\r\n" + Email3).Trim();
+                    allEmail = "";
+                    if (Email != "")
+                    {
+                        allEmail = allEmail + Email;
+                    }
+                    if (Email2 != "")
+                    {
+                        allEmail = allEmail + "\r\n" + Email2;
+                    }
+                    if (Email3 != "")
+                    {
+                        allEmail = allEmail + "\r\n" + Email3;
+                    }
+                    return allEmail.Trim();
                 }
-
             }
             set
             {

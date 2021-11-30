@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Excell = Microsoft.Office.Interop.Excel;
 
 namespace WebAddressbookTests
 {
@@ -51,6 +52,28 @@ namespace WebAddressbookTests
         {
             return JsonConvert.DeserializeObject<List<GroupData>>(
                 File.ReadAllText(@"groups.json"));                
+        }
+
+        public static IEnumerable<GroupData> GroupDataFromExcellFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            Excell.Application app = new Excell.Application();
+            Excell.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(),@"groups.xlsx"));
+            Excell.Worksheet sheet = wb.ActiveSheet;
+            Excell.Range range = sheet.UsedRange;
+            for (int i = 1; i<=range.Rows.Count; i++)
+            {
+                groups.Add(new GroupData()
+                {
+                    Name = range.Cells[i, 1].Value,
+                    Header = range.Cells[i, 2].Value,
+                    Footer = range.Cells[i, 3].Value
+                });
+            }
+            wb.Close();
+            app.Quit();
+            //app.Visible = false;
+            return groups;            
         }
 
         [Test, TestCaseSource("GroupDataFromJsonFile")]

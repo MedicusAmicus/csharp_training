@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Excell = Microsoft.Office.Interop.Excel;
 
 namespace WebAddressbookTests
 {
@@ -43,19 +44,26 @@ namespace WebAddressbookTests
 
         private static void WriteGroupDataFile(int count, string filename, string path, string format)
         {
-            if (format == "csv" || format == "xml" || format == "json")
+            List<GroupData> groups = new List<GroupData>();
+            for (int i = 0; i < count; i++)
             {
-                List<GroupData> groups = new List<GroupData>();
-                StreamWriter writer = new StreamWriter(path + filename);
-                for (int i = 0; i < count; i++)
+                groups.Add(new GroupData()
                 {
-                    groups.Add(new GroupData()
-                    {
-                        Name = TestBase.GenerateRandomString(10),
-                        Header = TestBase.GenerateRandomString(20),
-                        Footer = TestBase.GenerateRandomString(20)
-                    });
-                }
+                    Name = TestBase.GenerateRandomString(10),
+                    Header = TestBase.GenerateRandomString(20),
+                    Footer = TestBase.GenerateRandomString(20)
+                });
+            }
+
+            if (format == "xlsx")
+            {                
+                WriteGroupsToExcellFile(groups,(path + filename));
+                Console.Out.Write("Done!");
+            }
+            
+            else if (format == "csv" || format == "xml" || format == "json")
+            {               
+                StreamWriter writer = new StreamWriter(path + filename);                
 
                 if (format == "csv")
                 {
@@ -76,9 +84,11 @@ namespace WebAddressbookTests
             }
             else
             {
-                Console.Out.Write("Unrecognized format: " + format + ". Available formats are: *.csv, *.xml, *.json");
+                Console.Out.Write("Unrecognized format: " + format + ". Available formats are: *.csv, *.xml, *.json, *.xlsx");
             }            
         }
+
+        
 
         private static void WriteContactDataFile(int count, string filename, string path, string format)
         {
@@ -134,8 +144,28 @@ namespace WebAddressbookTests
         {
             writer.Write(JsonConvert.SerializeObject(groups, Formatting.Indented));            
         }
+        static void WriteGroupsToExcellFile(List<GroupData> groups, string fullFilePath)
+        {
+            Excell.Application app = new Excell.Application();
+            //app.Visible = true; //установить false после отладки
+            Excell.Workbook wb = app.Workbooks.Add();
+            Excell.Worksheet sheet = wb.ActiveSheet;
 
-        
+            int row = 1;
+            foreach (GroupData group in groups)
+            {
+                sheet.Cells[row, 1] = group.Name;
+                sheet.Cells[row, 2] = group.Header;
+                sheet.Cells[row, 3] = group.Footer;
+                row++;
+            }
+            File.Delete(fullFilePath);
+            wb.SaveAs(fullFilePath);
+            wb.Close();
+            //app.Visible = false;
+            app.Quit();
+        }
+
         static void WriteContactsToXmlFile(List<ContactsData> contacts, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<ContactsData>)).Serialize(writer, contacts);

@@ -39,8 +39,10 @@ namespace WebAddressbookTests
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
             string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+
             string birthday = getContactBirthday();
             string anniversary = getAnniversary();
+
             string sec_Address = driver.FindElement(By.Name("address2")).Text;
             string notes = driver.FindElement(By.Name("notes")).Text;
 
@@ -151,7 +153,7 @@ namespace WebAddressbookTests
                 ContactDetails = ContactDetails +"\r\n\r\n" + notes;
             }
 
-            return ContactDetails;
+            return ContactDetails.Trim();
         }
 
         private string getContactBirthday()
