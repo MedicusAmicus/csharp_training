@@ -201,9 +201,7 @@ namespace WebAddressbookTests
                 AllPhones = allPhones,
                 AllEmail = allEmail               
             };
-        }
-
-        
+        }        
 
         public ContactHelper Create(ContactsData contact)
         {
@@ -220,8 +218,6 @@ namespace WebAddressbookTests
         }
 
         private List<ContactsData> contactsCache = null;
-
-
 
         public List<ContactsData> GetContactList()        
         {

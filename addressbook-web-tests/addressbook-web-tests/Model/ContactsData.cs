@@ -1,7 +1,9 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using System;
 
 namespace WebAddressbookTests
 {
+    [Table(Name = "addressbook")]
     public class ContactsData : IEquatable<ContactsData>, IComparable<ContactsData>
     {
         private string allPhones;
@@ -53,15 +55,37 @@ namespace WebAddressbookTests
             Lastname = lastname;            
         }
 
+        [Column(Name = "firstname")]
         public string Firstname { get; set; }
+
+        [Column(Name = "lastname")]
         public string Lastname { get; set; }
+
+        [Column(Name = "middlename")]
+        public string Middlename { get; set; }
+
+        [Column(Name = "nickname")]
+        public string Nickname { get; set; }
+
+        [Column(Name = "id"), PrimaryKey, Identity]
         public int ID { get; set; }
 
+        [Column(Name = "address")]
         public string Address { get; set; }
 
+        [Column(Name = "home")]
         public string HomePhone { get; set; }
+
+        [Column(Name = "mobile")]
         public string MobilePhone { get; set; }
+
+        [Column(Name = "work")]
         public string WorkPhone { get; set; }
+
+        [Column(Name = "fax")]
+        public string Fax { get; set; }
+
+        [Column(Name = "phone2")]
         public string HomePhone2 { get; set; }
 
         public string AllPhones
@@ -103,8 +127,13 @@ namespace WebAddressbookTests
             }
         }
 
+        [Column(Name = "email")]
         public string Email { get; set; }
+
+        [Column(Name = "email2")]
         public string Email2 { get; set; }
+
+        [Column(Name = "email3")]
         public string Email3 { get; set; }
 
         public string ContactDetails { get; set; }

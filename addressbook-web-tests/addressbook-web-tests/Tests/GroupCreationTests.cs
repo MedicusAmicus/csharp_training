@@ -4,6 +4,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Excell = Microsoft.Office.Interop.Excel;
+using System;
 
 namespace WebAddressbookTests
 {
@@ -129,5 +130,20 @@ namespace WebAddressbookTests
             List<GroupData> newGroups = app.Group.GetGroupList();
             Assert.AreEqual(oldGroups, newGroups);    //group list not changed         
         }
+
+        [Test]
+        public void TestDBConnection()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUI = app.Group.GetGroupList();
+            DateTime end = DateTime.Now;
+            Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupData> fromDB = GroupData.GetAllGroups();
+            end = DateTime.Now;
+            Console.Out.WriteLine(end.Subtract(start));
+        }
+        
     }
 }

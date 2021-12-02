@@ -17,17 +17,7 @@ namespace WebAddressbookTests
             string filename = target + '.' + format;
             string path = "c:\\Users\\User\\source\\repos\\MedicusAmicus\\csharp_training" +
                 "\\addressbook-web-tests\\addressbook-web-tests\\"; //не хочу ручками копировать
-
-            /*
-            string target = args[0];
-            int count = Convert.ToInt32(args[1]);
-            string filename = args[2];
-            string path = "c:\\Users\\User\\source\\repos\\MedicusAmicus\\csharp_training" +
-                "\\addressbook-web-tests\\addressbook-web-tests\\"; 
-            string format = args[3];
-            */
-
-
+            
             if (target == "groups")
             {
                 WriteGroupDataFile(count, filename, path, format);                
@@ -86,9 +76,7 @@ namespace WebAddressbookTests
             {
                 Console.Out.Write("Unrecognized format: " + format + ". Available formats are: *.csv, *.xml, *.json, *.xlsx");
             }            
-        }
-
-        
+        }        
 
         private static void WriteContactDataFile(int count, string filename, string path, string format)
         {
