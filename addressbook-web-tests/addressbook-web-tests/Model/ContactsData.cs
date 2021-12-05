@@ -1,5 +1,7 @@
 ﻿using LinqToDB.Mapping;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAddressbookTests
 {
@@ -9,9 +11,7 @@ namespace WebAddressbookTests
         private string allPhones;
         private string allEmail;
 
-        public ContactsData()
-        {            
-        }
+        public ContactsData() { }
 
         public override string ToString()
         {
@@ -68,7 +68,7 @@ namespace WebAddressbookTests
         public string Nickname { get; set; }
 
         [Column(Name = "id"), PrimaryKey, Identity]
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         [Column(Name = "address")]
         public string Address { get; set; }
@@ -153,6 +153,17 @@ namespace WebAddressbookTests
                 return "";
             }
             return email + "\r\n";
+        }
+
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
+
+        public static List<ContactsData> GetAllContacts()
+        {
+            using (AddressBookDb db = new AddressBookDb())
+            {
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
+            }
         }
     }
 }

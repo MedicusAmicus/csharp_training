@@ -22,7 +22,6 @@ namespace WebAddressbookTests
         {
             return (List<ContactsData>)new XmlSerializer(typeof(List<ContactsData>)).Deserialize(new StreamReader(@"contacts.xml"));
         }
-
         public static IEnumerable<ContactsData> ContactDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<ContactsData>>(

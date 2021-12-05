@@ -29,6 +29,8 @@ namespace WebAddressbookTests
             return this;
         }
 
+        
+
         public int GetGroupCount()
         {
             return driver.FindElements(By.CssSelector("span.group")).Count;
@@ -94,11 +96,31 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GotoGroupsPage();
+            SelectGroup(group.Id);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
+
 
         public GroupHelper Modify(int group_number, GroupData new_data)
         {           
             manager.Navigator.GotoGroupsPage();
             SelectGroup(group_number);
+            ModifyGroup();
+            FillGroupForm(new_data);
+            Update();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper Modify(GroupData old_data, GroupData new_data)
+        {
+            manager.Navigator.GotoGroupsPage();
+            SelectGroup(old_data.Id);
             ModifyGroup();
             FillGroupForm(new_data);
             Update();
@@ -122,6 +144,12 @@ namespace WebAddressbookTests
         public GroupHelper SelectGroup(int group_index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (group_index+1) + "]")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '"+id+"'])")).Click();
             return this;
         }
         public GroupHelper Submit()

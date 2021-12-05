@@ -1,7 +1,8 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+
 
 namespace WebAddressbookTests
 {
@@ -63,6 +64,36 @@ namespace WebAddressbookTests
                 ContactDetails = contactDetails
             };
 
+        }
+
+        public void AddContact2Group(ContactsData contact, GroupData group)
+        {
+            manager.Navigator.OpenHomePage();
+            ClearGroupfilter();
+            SelectContact(contact.ID);
+            SelectGroup4Adding(group.Name);
+            CommmitAdding();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d=> d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void SelectContact(string contactId)
+        {
+            driver.FindElement(By.Id(contactId)).Click();
+        }
+
+        public void CommmitAdding()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroup4Adding(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void ClearGroupfilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
         }
 
         private static string CleanAndConcat(string firstName, string middleName, string lastName, 
@@ -163,7 +194,7 @@ namespace WebAddressbookTests
             string year = driver.FindElement(By.Name("byear")).GetAttribute("value").Trim();
 
             string date = day + ". " + month + " " + year;
-            return date;
+            return date.Trim();
         }
 
         private string getAnniversary()
@@ -173,7 +204,7 @@ namespace WebAddressbookTests
             string year = driver.FindElement(By.Name("ayear")).GetAttribute("value").Trim();
 
             string date = day + ". " + month + " " + year;
-            return date;
+            return date.Trim();
         }
 
         public string GetContactInformationFromDetailTable(int contactIndex)
@@ -232,7 +263,7 @@ namespace WebAddressbookTests
 
                     string firstname = contact[2].Text;
                     string lastname = contact[1].Text;
-                    int Id = Convert.ToInt32(element.FindElement(By.TagName("input")).GetAttribute("value")); 
+                    string Id = element.FindElement(By.TagName("input")).GetAttribute("value"); 
 
                     contactsCache.Add(new ContactsData(firstname, lastname) {ID = Id});
                 }
@@ -295,7 +326,6 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.LinkText("add new")).Click();
         }
-
 
         public ContactHelper Submit()
         {

@@ -9,7 +9,7 @@ using System;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    class GroupCreationTests : AuthTestBase
+    class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -80,13 +80,13 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
-            List<GroupData> oldGroups = app.Group.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAllGroups();
 
             app.Group.Create(group);
 
             Assert.AreEqual(oldGroups.Count+1, app.Group.GetGroupCount());
 
-            List<GroupData> newGroups = app.Group.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAllGroups();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
@@ -113,7 +113,7 @@ namespace WebAddressbookTests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
         }
-        */
+        */  //Тест создания группы с пустым именем
 
         [Test]
         public void BadNameGroupCreationTest()
@@ -122,7 +122,7 @@ namespace WebAddressbookTests
             group.Header = "";
             group.Footer = "";
 
-            List<GroupData> oldGroups = app.Group.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAllGroups();
 
             app.Group.Create(group);
 
@@ -131,19 +131,16 @@ namespace WebAddressbookTests
             Assert.AreEqual(oldGroups, newGroups);    //group list not changed         
         }
 
+
+        
         [Test]
         public void TestDBConnection()
         {
-            DateTime start = DateTime.Now;
-            List<GroupData> fromUI = app.Group.GetGroupList();
-            DateTime end = DateTime.Now;
-            Console.Out.WriteLine(end.Subtract(start));
-
-            start = DateTime.Now;
-            List<GroupData> fromDB = GroupData.GetAllGroups();
-            end = DateTime.Now;
-            Console.Out.WriteLine(end.Subtract(start));
+            foreach (ContactsData contact in GroupData.GetAllGroups()[1].GetContacts()) 
+                {
+                Console.Out.WriteLine(contact);
+                } 
         }
-        
+         //тест соединения с БД
     }
 }

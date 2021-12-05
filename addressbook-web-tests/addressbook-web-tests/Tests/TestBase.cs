@@ -5,7 +5,8 @@ using System.Text;
 namespace WebAddressbookTests
 {
     public class TestBase
-    {        
+    {
+        public static bool Perform_Long_Ui_Checks = true;
         protected ApplicationManager app;
 
         [SetUp]
