@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTests : AuthTestBase
+    public class ContactRemovalTests : ContactsTestBase
     {
         [Test]
         public void ContactRemoveFromMainPageTest()
@@ -16,14 +16,14 @@ namespace WebAddressbookTests
                 app.Contact.Create(contact);
             }
 
-            List<ContactsData> oldContacts = app.Contact.GetContactList();
-            ContactsData oldData = oldContacts[contact_index];
+            List<ContactsData> oldContacts = ContactsData.GetAllContacts();
+            ContactsData TobeRemoved = oldContacts[contact_index];
 
-            app.Contact.RemoveFromMainPage(contact_index);
+            app.Contact.RemoveFromMainPage(TobeRemoved);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contact.GetContactCount());
 
-            List<ContactsData> newContacts = app.Contact.GetContactList();
+            List<ContactsData> newContacts = ContactsData.GetAllContacts();
             oldContacts.RemoveAt(contact_index);
             Assert.AreEqual(oldContacts, newContacts);
         }
@@ -37,16 +37,16 @@ namespace WebAddressbookTests
                 ContactsData contact = new ContactsData("Johnn", "Dow");
                 app.Contact.Create(contact);
             }
-            List<ContactsData> oldContacts = app.Contact.GetContactList();
-            ContactsData oldData = oldContacts[contact_index];
+            List<ContactsData> oldContacts = ContactsData.GetAllContacts();
+            ContactsData TobeRemoved = oldContacts[contact_index];
 
-            app.Contact.RemoveFromModifyPage(contact_index);
+            app.Contact.RemoveFromModifyPage(TobeRemoved);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contact.GetContactCount());
 
-            List<ContactsData> newContacts = app.Contact.GetContactList();
+            List<ContactsData> newContacts = ContactsData.GetAllContacts();
 
-            oldContacts.RemoveAt(contact_index+1);
+            oldContacts.RemoveAt(contact_index);
 
             Assert.AreEqual(oldContacts, newContacts);            
         }

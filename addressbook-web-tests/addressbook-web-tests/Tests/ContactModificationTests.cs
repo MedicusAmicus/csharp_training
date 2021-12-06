@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactsTestBase
     {
         [Test]
         public void ContactModifyTest()
@@ -15,20 +15,19 @@ namespace WebAddressbookTests
                 ContactsData contact = new ContactsData() { Firstname = "Johnn", Lastname = "Dow" };
                 app.Contact.Create(contact);
             }
-            ContactsData new_data = new ContactsData() { Firstname = "Jane", Lastname = "Parkins" };
-            
+            ContactsData new_data = new ContactsData() { Firstname = "Jane", Lastname = "Parkins" };            
 
-            List<ContactsData> oldContacts = app.Contact.GetContactList();
-            ContactsData oldData = oldContacts[contact_index];
+            List<ContactsData> oldContacts = ContactsData.GetAllContacts();
+            ContactsData ToBeModified = oldContacts[contact_index];
 
-            app.Contact.Modify(contact_index, new_data);
+            app.Contact.Modify(ToBeModified.ID, new_data);
 
-            List<ContactsData> newContacts = app.Contact.GetContactList();
+            List<ContactsData> newContacts = ContactsData.GetAllContacts();
 
             Assert.AreEqual(oldContacts.Count, app.Contact.GetContactCount());
 
-            oldData.Lastname = new_data.Lastname;
-            oldData.Firstname = new_data.Firstname;
+            ToBeModified.Lastname = new_data.Lastname;
+            ToBeModified.Firstname = new_data.Firstname;
 
             oldContacts.Sort();
             newContacts.Sort();
@@ -36,10 +35,10 @@ namespace WebAddressbookTests
 
             foreach (ContactsData contact in newContacts)
             {
-                if (contact.ID == oldData.ID)
+                if (contact.ID == ToBeModified.ID)
                 {
-                    Assert.AreEqual(oldData.Lastname, contact.Lastname);
-                    Assert.AreEqual(oldData.Firstname, contact.Firstname);                    
+                    Assert.AreEqual(ToBeModified.Lastname, contact.Lastname);
+                    Assert.AreEqual(ToBeModified.Firstname, contact.Firstname);                    
                 }
             }
         }

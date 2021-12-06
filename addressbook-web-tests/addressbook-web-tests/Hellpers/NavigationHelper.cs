@@ -32,6 +32,11 @@ namespace WebAddressbookTests
             int contact_id = int.Parse(s: driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (contact_number+1) + "]")).GetProperty("id"));
             driver.Navigate().GoToUrl(baseURL + "/edit.php?id=" + contact_id);
         }
+
+        public void GotoModificationContactPage(string contact_number)
+        {
+            driver.Navigate().GoToUrl(baseURL + "/edit.php?id=" + contact_number);
+        }
         public void AlertAccept()
         {
             driver.SwitchTo().Alert().Accept();

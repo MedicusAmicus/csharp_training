@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactsTestBase
     {
         public static IEnumerable<ContactsData> RandomContactDataProvider()
         {
@@ -31,13 +31,13 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactsData contact)
         {         
-            List<ContactsData> oldContacts = app.Contact.GetContactList();
+            List<ContactsData> oldContacts = ContactsData.GetAllContacts();
 
             app.Contact.Create(contact);
 
             Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContactCount());
 
-            List<ContactsData> newContacts = app.Contact.GetContactList();
+            List<ContactsData> newContacts = ContactsData.GetAllContacts();
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();

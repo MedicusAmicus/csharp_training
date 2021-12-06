@@ -111,6 +111,7 @@
     <Compile Include="Model\AddressBookDb.cs" />
     <Compile Include="Tests\AddContacts2GroupsTests.cs" />
     <Compile Include="Tests\ContactInformationTest.cs" />
+    <Compile Include="Tests\ContactsTestBase.cs" />
     <Compile Include="Tests\GroupContactRelation.cs" />
     <Compile Include="Tests\GroupTestBase.cs" />
     <Compile Include="Tests\LoginTests.cs" />

@@ -194,7 +194,7 @@ namespace WebAddressbookTests
             string year = driver.FindElement(By.Name("byear")).GetAttribute("value").Trim();
 
             string date = day + ". " + month + " " + year;
-            return date.Trim();
+            return date;
         }
 
         private string getAnniversary()
@@ -204,7 +204,7 @@ namespace WebAddressbookTests
             string year = driver.FindElement(By.Name("ayear")).GetAttribute("value").Trim();
 
             string date = day + ". " + month + " " + year;
-            return date.Trim();
+            return date;
         }
 
         public string GetContactInformationFromDetailTable(int contactIndex)
@@ -280,6 +280,15 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Modify(string contact_ID, ContactsData new_data)
+        {
+            ModifyContact(contact_ID);
+            FillContactsCreationForm(new_data);
+            Update();
+            manager.Navigator.ReturnToHomepage();
+            return this;
+        }
+
         public ContactHelper RemoveFromMainPage(int contact_number)
         {
             SelectContact(contact_number);
@@ -292,6 +301,23 @@ namespace WebAddressbookTests
         public ContactHelper RemoveFromModifyPage(int contact_number)
         {            
             ModifyContact(contact_number);
+            Remove();
+            manager.Navigator.ReturnToHomepage();
+            return this;
+        }
+
+        public ContactHelper RemoveFromMainPage(ContactsData contact)
+        {
+            SelectContact(contact.ID);
+            Remove();
+            manager.Navigator.AlertAccept();
+            manager.Navigator.ReturnToHomepage();
+            return this;
+        }
+
+        public ContactHelper RemoveFromModifyPage(ContactsData contact)
+        {
+            ModifyContact(contact.ID);
             Remove();
             manager.Navigator.ReturnToHomepage();
             return this;
@@ -313,6 +339,12 @@ namespace WebAddressbookTests
         public ContactHelper ModifyContact(int contact_number)
         {
             manager.Navigator.GotoModificationContactPage(contact_number);
+            return this;
+        }
+
+        public ContactHelper ModifyContact(string contact_Id)
+        {
+            manager.Navigator.GotoModificationContactPage(contact_Id); 
             return this;
         }
 

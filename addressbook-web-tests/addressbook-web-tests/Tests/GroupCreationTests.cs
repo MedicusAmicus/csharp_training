@@ -9,7 +9,7 @@ using System;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    class GroupCreationTests : GroupTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {

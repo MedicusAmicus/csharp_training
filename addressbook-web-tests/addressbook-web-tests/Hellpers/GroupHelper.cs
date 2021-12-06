@@ -102,6 +102,7 @@ namespace WebAddressbookTests
             SelectGroup(group.Id);
             RemoveGroup();
             ReturnToGroupsPage();
+            groupCache = null;
             return this;
         }
 
