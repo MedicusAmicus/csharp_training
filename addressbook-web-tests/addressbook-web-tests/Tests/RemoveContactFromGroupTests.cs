@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -9,12 +10,24 @@ namespace WebAddressbookTests
         [Test]
         public void RemovingContactFromGroup()
         {
-            int contact_index = 4;
-            GroupData group = GroupData.GetAllGroups()[0];
+            int contact_index = 15;
+            int group_index = 9;
+            while (GroupData.GetAllGroups().Count < group_index+1) // создадим группу, если нет под выбранным индексом
+            {
+                GroupData group_to_add = new GroupData(GenerateRandomString(10));
+                app.Group.Create(group_to_add);
+            }
+            GroupData group = GroupData.GetAllGroups()[group_index];
             List<ContactsData> oldList = group.GetContacts();
 
             while (oldList.Count <= contact_index + 1) // на случай, если в группе не хватает контактов - добавим до quantum satis
             {
+                while (!ContactsData.GetAllContacts().Except(oldList).Any())
+                {
+                    ContactsData contactToAdd = new ContactsData(GenerateRandomString(6), GenerateRandomString(8));
+                    app.Contact.Create(contactToAdd);
+                    Console.Out.WriteLine("Extra contact created");
+                }
                 app.Contact.AddContact2Group(ContactsData.GetAllContacts().Except(oldList).First(), group);
                 oldList = group.GetContacts();
             }
