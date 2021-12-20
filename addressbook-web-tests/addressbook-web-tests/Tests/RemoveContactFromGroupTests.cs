@@ -10,29 +10,25 @@ namespace WebAddressbookTests
         [Test]
         public void RemovingContactFromGroup()
         {
-            int contact_index = 15;
-            int group_index = 9;
-            while (GroupData.GetAllGroups().Count < group_index+1) // создадим группу, если нет под выбранным индексом
+           if (GroupData.GetAllGroups().Count == 0)
             {
                 GroupData group_to_add = new GroupData(GenerateRandomString(10));
                 app.Group.Create(group_to_add);
             }
-            GroupData group = GroupData.GetAllGroups()[group_index];
+            GroupData group = GroupData.GetAllGroups()[0];
             List<ContactsData> oldList = group.GetContacts();
 
-            while (oldList.Count <= contact_index + 1) // на случай, если в группе не хватает контактов - добавим до quantum satis
+            if (oldList.Count == 0) 
             {
-                while (!ContactsData.GetAllContacts().Except(oldList).Any())
-                {
-                    ContactsData contactToAdd = new ContactsData(GenerateRandomString(6), GenerateRandomString(8));
-                    app.Contact.Create(contactToAdd);
-                    Console.Out.WriteLine("Extra contact created");
-                }
+                ContactsData contactToAdd = new ContactsData(GenerateRandomString(6), GenerateRandomString(8));
+                app.Contact.Create(contactToAdd);
+                Console.Out.WriteLine("Extra contact created");
+                
                 app.Contact.AddContact2Group(ContactsData.GetAllContacts().Except(oldList).First(), group);
                 oldList = group.GetContacts();
             }
 
-            ContactsData contactToRemove = oldList[contact_index];
+            ContactsData contactToRemove = oldList[0];
 
             app.Contact.RemoveContactFromGroup(contactToRemove, group);
 

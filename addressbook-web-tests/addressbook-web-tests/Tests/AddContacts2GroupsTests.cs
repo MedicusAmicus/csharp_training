@@ -10,14 +10,14 @@ namespace WebAddressbookTests
         [Test]
         public void AddingContact2Group()
         {
-            int group_index = 3;
-            while (GroupData.GetAllGroups().Count < group_index + 1)
+            
+            if (GroupData.GetAllGroups().Count == 0)
             {
                 GroupData group_to_add = new GroupData(GenerateRandomString(10));
                 app.Group.Create(group_to_add);
                 Console.Out.WriteLine("Extra group created");
             }
-            GroupData group = GroupData.GetAllGroups()[group_index];
+            GroupData group = GroupData.GetAllGroups()[0];
 
             List<ContactsData> oldList = group.GetContacts();
             
